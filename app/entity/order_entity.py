@@ -1,9 +1,10 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Enum
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
 from app.config.config import Base
 from app.entity.EntryStatus import EntryStatus
-from sqlalchemy import Enum as SQLEnum
 
 
 class Order(Base):
@@ -19,3 +20,4 @@ class Order(Base):
 
     # Relationship to order entries
     entries = relationship("OrderEntry", back_populates="order", cascade="all, delete-orphan")
+    payments = relationship("Payment", back_populates="order", cascade="all, delete-orphan")

@@ -3,6 +3,7 @@ from mangum import Mangum
 from app.routes.health import router as health_router
 from app.routes.order import router as order_router
 from app.exceptions.handlers import add_global_error_handler
+from app.routes.payment import router as payment_router
 from app.config.config import Base, init_db
 from app.middleware.alb_auth import ALBCognitoAuth
 from fastapi import Request
@@ -37,6 +38,7 @@ add_global_error_handler(app)
 # Include routers
 app.include_router(health_router)
 app.include_router(order_router)
+app.include_router(payment_router)
 
 # Lambda handler
 handler = Mangum(app)
