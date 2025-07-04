@@ -13,8 +13,8 @@ class OrderService:
         order_data.created_by = invoke
         return self.repository.create_order(db, order_data)
 
-    def get_all_orders(self, db: Session) -> List[Order]:
-        return self.repository.get_all_orders(db)
+    def get_all_orders(self, db: Session, invoke: str) -> List[Order]:
+        return self.repository.get_all_orders(db=db, invoke= invoke)
 
-    def get_order_by_id(self, db: Session, order_id: int) -> Optional[Order]:
-        return self.repository.get_order_by_id(db, order_id)
+    def get_order_by_id(self, db: Session, order_id: int, invoke: str) -> Optional[Order]:
+        return self.repository.get_order_by_id(db=db, order_id=order_id, invoke=invoke)

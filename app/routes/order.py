@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+
 router = APIRouter()
 import logging
 from app.config.config import get_db
@@ -20,11 +21,11 @@ def create_order(order: OrderCreate, db: Session = Depends(get_db), claims: dict
 
 @router.get("/")
 def get_all_orders(db: Session = Depends(get_db), claims: dict = Depends(require_auth)):
-    return order_service.get_all_orders(db)
+    return order_service.get_all_orders(db=db, invoke=claims.get("email"))
 
 @router.get("/{order_id}")
 def get_order_by_id(order_id: int, db: Session = Depends(get_db), claims: dict = Depends(require_auth)):
-    order = order_service.get_order_by_id(db, order_id)
+    order = order_service.get_order_by_id(db=db, order_id=order_id, invoke=claims.get("email"))
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
     return order

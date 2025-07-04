@@ -32,13 +32,19 @@ class OrderRepository:
         db.refresh(new_order)
         return new_order
 
-    def get_all_orders(self, db: Session) -> List[Order]:
-        return db.query(Order).options(joinedload(Order.entries)).all()
+    def get_all_orders(self, db: Session, invoke: str) -> List[Order]:
+        return (db.query(Order)
+                .options(joinedload(Order.entries))
+                .filter(Order.created_by == invoke)
+                .all())
 
-    def get_order_by_id(self, db: Session, order_id: int) -> Optional[Order]:
+    def get_order_by_id(self, db: Session, order_id: int, invoke: str) -> Optional[Order]:
         return (
             db.query(Order)
                 .options(joinedload(Order.entries))
-                .filter(Order.id == order_id)
+                .filter(
+                    (Order.id == order_id)&
+                    (Order.created_by == invoke)
+                )
                 .first()
         )
