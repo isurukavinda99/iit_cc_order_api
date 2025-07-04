@@ -1,7 +1,10 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Enum
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from app.config.config import Base
+from app.entity.EntryStatus import EntryStatus
+from sqlalchemy import Enum as SQLEnum
+
 
 class Order(Base):
     __tablename__ = "orders"
@@ -12,6 +15,7 @@ class Order(Base):
     updated_by = Column(String(250), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    status = Column(SQLEnum(EntryStatus), nullable=False, default=EntryStatus.PENDING)
 
     # Relationship to order entries
     entries = relationship("OrderEntry", back_populates="order", cascade="all, delete-orphan")

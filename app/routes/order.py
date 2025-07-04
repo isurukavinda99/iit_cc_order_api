@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.middleware.alb_auth import require_auth
 from app.services.order_service import OrderService
 from app.repositories.order_repository import OrderRepository
+from fastapi import Query
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +21,11 @@ def create_order(order: OrderCreate, db: Session = Depends(get_db), claims: dict
     return order_service.create_order(db=db, order_data=order, invoke=claims.get("email"))
 
 @router.get("/")
-def get_all_orders(db: Session = Depends(get_db), claims: dict = Depends(require_auth)):
-    return order_service.get_all_orders(db=db, invoke=claims.get("email"))
+def get_all_orders(
+        status: str = Query(..., description="Order status to filter by"),
+        db: Session = Depends(get_db),
+        claims: dict = Depends(require_auth)):
+    return order_service.get_all_orders(db=db, invoke=claims.get("email"), status=status)
 
 @router.get("/{order_id}")
 def get_order_by_id(order_id: int, db: Session = Depends(get_db), claims: dict = Depends(require_auth)):
