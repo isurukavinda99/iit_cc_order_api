@@ -7,6 +7,8 @@ from app.entity.order_entity import Order
 from app.dto.order_schema import OrderCreate
 from sqlalchemy.orm import joinedload
 
+from app.exceptions.exceptions import AppExceptionCase
+
 
 class OrderRepository:
 
@@ -49,3 +51,18 @@ class OrderRepository:
                 )
                 .first()
         )
+
+    def update_order_status(self, db: Session, order_id: int, new_status: str) -> Optional[Order]:
+        order = db.query(Order).filter(Order.id == order_id).first()
+
+        if not order:
+            raise AppExceptionCase(
+                message="Invalid order_id: referenced order does not exist.",
+                code="ORDER_NOT_FOUND"
+            )
+
+        order.status = new_status
+
+        db.commit()
+        db.refresh(order)
+        return order
