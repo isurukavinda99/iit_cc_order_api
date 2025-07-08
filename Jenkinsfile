@@ -78,15 +78,18 @@ pipeline {
 
         stage('Deploy to AWS Lambda') {
             steps {
-                // Use AWS Lambda deployment plugin with stored credentials
-                awsLambdaDeploy(
-                    functionName: "${FUNCTION_NAME}",
-                    region: "${REGION}",
-                    updateMode: 'code',
-                    zipFilePath: "${ZIP_FILE}",
-                    awsAccessKeyId: credentials('aws-access-key-id'),
-                    awsSecretKey: credentials('aws-access-key-id')
-                )
+                withCredentials([
+                    usernamePassword(credentialsId: 'aws-access-key-id', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
+                    sh '''
+                    echo "✅ Deploying to AWS Lambda..."
+
+                    aws lambda update-function-code \
+                      --function-name ${FUNCTION_NAME} \
+                      --region us-east-1 \
+                      --zip-file fileb://${ZIP_FILE}
+                    '''
+                }
             }
         }
     }
