@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        awscli 'aws-cli-v2'
-    }
-
     environment {
         FUNCTION_NAME = 'iit_order_service'
         REGION = 'us-east-1'
