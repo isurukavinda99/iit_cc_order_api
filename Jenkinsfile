@@ -11,6 +11,7 @@ pipeline {
         stage('Setup Virtual Environment') {
             steps {
                 sh '''
+                bash -c
                 echo "✅ Creating Python virtual environment..."
                 python3 -m venv venv
                 '''
@@ -20,6 +21,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
+                bash -c
                 echo "✅ Activating virtual environment and installing dependencies..."
                 source venv/bin/activate
                 pip install -r requirements.txt
@@ -30,8 +32,9 @@ pipeline {
         stage('Run Integration Tests') {
             steps {
                 sh '''
+                bash -c
                 echo "✅ Running integration tests..."
-                . venv/bin/activate
+                source venv/bin/activate
                 uvicorn app.main:app --host 127.0.0.1 --port 8000 &
                 SERVER_PID=$!
                 sleep 20
@@ -56,6 +59,7 @@ pipeline {
         stage('Package Lambda Function') {
             steps {
                 sh '''
+                bash -c
                 echo "✅ Packaging application into zip file for AWS Lambda..."
                 zip -r ${ZIP_FILE} app/
                 ls -lh
