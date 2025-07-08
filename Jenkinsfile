@@ -20,9 +20,8 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                bash -c "
                 echo "✅ Activating virtual environment and installing dependencies..."
-                source venv/bin/activate
+                . venv/bin/activate
                 pip install -r requirements.txt
                 '''
             }
@@ -31,9 +30,8 @@ pipeline {
         stage('Run Integration Tests') {
             steps {
                 sh '''
-                bash -c "
                 echo "✅ Running integration tests..."
-                source venv/bin/activate
+                . venv/bin/activate
                 uvicorn app.main:app --host 127.0.0.1 --port 8000 &
                 SERVER_PID=$!
                 sleep 20
