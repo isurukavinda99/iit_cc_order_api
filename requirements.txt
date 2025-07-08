@@ -33,3 +33,5 @@ typing-inspection
 urllib3
 uvicorn
 pymysql
+requests
+pytest
