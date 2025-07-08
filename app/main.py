@@ -18,12 +18,14 @@ security = ALBCognitoAuth()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
+# test deployment
+
 @app.on_event("startup")
 async def startup_event():
     logger.info("🚀 App startup initiated.")
     engine = init_db()
     Base.metadata.create_all(bind=engine)
-    logger.info("🚀 App startup end. ")
+    logger.info("🚀 App startup end.")
 
 
 @app.middleware("http")
