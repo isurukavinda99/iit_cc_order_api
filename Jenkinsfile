@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        python 'Python 3.10'
-    }
-
     environment {
         FUNCTION_NAME = 'iit_order_service'
         REGION = 'us-east-1'
