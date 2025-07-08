@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh '''
                 echo "✅ Running integration tests..."
-                source venv/bin/activate
+                . venv/bin/activate
                 uvicorn app.main:app --host 127.0.0.1 --port 8000 &
                 SERVER_PID=$!
                 sleep 20
