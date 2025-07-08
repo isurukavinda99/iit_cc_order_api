@@ -11,7 +11,6 @@ pipeline {
         stage('Setup Virtual Environment') {
             steps {
                 sh '''
-                bash -c "
                 echo "✅ Creating Python virtual environment..."
                 python3 -m venv venv
                 '''
@@ -59,7 +58,6 @@ pipeline {
         stage('Package Lambda Function') {
             steps {
                 sh '''
-                bash -c "
                 echo "✅ Packaging application into zip file for AWS Lambda..."
                 zip -r ${ZIP_FILE} app/
                 ls -lh
