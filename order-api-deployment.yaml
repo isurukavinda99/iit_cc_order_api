@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      containers:
+      - name: order-api-container
+        image: isurukavinda99/order_api:latest
+        ports:
+        - containerPort: 8081
+        env:
+        - name: DB_HOST
+          value: "iit-cc-assignment.cg7k80goqzon.us-east-1.rds.amazonaws.com"
+        - name: DB_NAME
+          value: "iit_game_service"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASSWORD
+          value: "root"
+        - name: DB_PORT
+          value: "3306"
+        - name: COGNITO_USER_POOL_ID
+          value: "us-east-1_SGSijIBP0"
+        - name: COGNITO_CLIENT_ID
+          value: "79kvjkpkt94sksjel3f0720834"
+        - name: AWS_REGION
+          value: "us-east-1"
+
