@@ -45,7 +45,8 @@ pipeline {
                             -e COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID} \\
                             -e AWS_REGION=${AWS_REGION} \\
                             -e OIDC_TOKEN=${OIDC_TOKEN} \\
-                            ${DOCKER_HUB_REPO}:latest pytest app/tests/integration || exit 1
+                            ${DOCKER_HUB_REPO}:latest \\
+                            /bin/sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8081 & sleep 5 && pytest app/tests/integration"
 
                     """
                 }
