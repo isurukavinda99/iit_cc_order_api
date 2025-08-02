@@ -8,8 +8,7 @@ pipeline {
         K8S_SERVICE_FILE = 'order-service.yaml'
         K8S_SECRET_FILE = 'order-api-secret.yaml'
 
-        // Your environment variables for testing & deployment
-        DB_HOST = 'iit-cc-assignment.cg7k80goqzon.us-east-1.rds.amazonaws.com'
+//         DB_HOST = 'iit-cc-assignment.cg7k80goqzon.us-east-1.rds.amazonaws.com'
         DB_NAME = 'test_iit_game_service'
         DB_USER = 'appuser_test'
         DB_PASSWORD = 'app_password'
@@ -26,6 +25,24 @@ pipeline {
                 script {
                     echo '=== Building Docker Image ==='
                     dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
+                }
+            }
+        }
+
+        stage('Use Secrets') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'db-host', variable: 'DB_HOST'),
+                    string(credentialsId: 'db-name', variable: 'DB_NAME'),
+                    string(credentialsId: 'db-user', variable: 'DB_USER'),
+                    string(credentialsId: 'db-password', variable: 'DB_PASSWORD'),
+                    string(credentialsId: 'db-port', variable: 'DB_PORT'),
+                    string(credentialsId: 'cognito-user-pool-id', variable: 'COGNITO_USER_POOL_ID'),
+                    string(credentialsId: 'cognito-client-id', variable: 'COGNITO_CLIENT_ID'),
+                    string(credentialsId: 'aws-region', variable: 'AWS_REGION'),
+                    string(credentialsId: 'oidc-token', variable: 'OIDC_TOKEN')
+                ]) {
+                    sh 'echo "DB Host is $DB_HOST"'
                 }
             }
         }
