@@ -85,6 +85,7 @@ pipeline {
                         kubectl apply -f ${K8S_SECRET_FILE} --validate=false
                         kubectl apply -f ${K8S_DEPLOY_FILE} --validate=false
                         kubectl apply -f ${K8S_SERVICE_FILE} --validate=false
+                        kubectl apply -f order-api-hpa.yaml --validate=false
                         kubectl rollout restart deployment/order-api-deployment
                         kubectl rollout status deployment/order-api-deployment
                     """
