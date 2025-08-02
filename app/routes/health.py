@@ -9,6 +9,7 @@ async def health_check():
         "version": "1.0.1",
         "services": {
             "database": "available",
-            "cache": "available"
+            "cache": "available",
+            "app": "order service",
         }
     }
