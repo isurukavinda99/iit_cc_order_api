@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS_ID = 'dockerhub'
         DOCKER_HUB_REPO = 'isurukavinda99/order_api'
-        K8S_DEPLOY_FILE = 'order-deployment.yaml'
+        K8S_DEPLOY_FILE = 'order-api-deployment.yaml'
         K8S_SERVICE_FILE = 'order-service.yaml'
 
         // Your environment variables for testing & deployment
