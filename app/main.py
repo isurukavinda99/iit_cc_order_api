@@ -1,5 +1,3 @@
-import os
-
 from fastapi import FastAPI
 from mangum import Mangum
 from app.routes.health import router as health_router
@@ -21,8 +19,6 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # test deployment
-
-print("DB_HOST #################", os.getenv("DB_HOST"))
 
 @app.on_event("startup")
 async def startup_event():

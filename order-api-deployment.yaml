@@ -34,4 +34,6 @@ spec:
           value: "79kvjkpkt94sksjel3f0720834"
         - name: AWS_REGION
           value: "us-east-1"
+        command: [ "sleep" ]
+        args: [ "3600" ]
 
