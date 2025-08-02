@@ -10,8 +10,8 @@ pipeline {
         // Your environment variables for testing & deployment
         DB_HOST = 'iit-cc-assignment.cg7k80goqzon.us-east-1.rds.amazonaws.com'
         DB_NAME = 'test_iit_game_service'
-        DB_USER = 'root'
-        DB_PASSWORD = 'iitCCAsign1'
+        DB_USER = 'appuser'
+        DB_PASSWORD = 'app_password'
         DB_PORT = '3306'
         COGNITO_USER_POOL_ID = 'us-east-1_SGSijIBP0'
         COGNITO_CLIENT_ID = '79kvjkpkt94sksjel3f0720834'
