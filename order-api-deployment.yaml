@@ -23,9 +23,9 @@ spec:
         - name: DB_NAME
           value: "iit_game_service"
         - name: DB_USER
-          value: "root"
+          value: "appuser"
         - name: DB_PASSWORD
-          value: "root"
+          value: "app_password"
         - name: DB_PORT
           value: "3306"
         - name: COGNITO_USER_POOL_ID
