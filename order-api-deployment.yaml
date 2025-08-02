@@ -19,19 +19,43 @@ spec:
         - containerPort: 8081
         env:
         - name: DB_HOST
-          value: "iit-cc-assignment.cg7k80goqzon.us-east-1.rds.amazonaws.com"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_HOST
         - name: DB_NAME
-          value: "iit_game_service"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_NAME
         - name: DB_USER
-          value: "appuser"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_USER
         - name: DB_PASSWORD
-          value: "app_password"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_PASSWORD
         - name: DB_PORT
-          value: "3306"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_PORT
         - name: COGNITO_USER_POOL_ID
-          value: "us-east-1_SGSijIBP0"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: COGNITO_USER_POOL_ID
         - name: COGNITO_CLIENT_ID
-          value: "79kvjkpkt94sksjel3f0720834"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: COGNITO_CLIENT_ID
         - name: AWS_REGION
-          value: "us-east-1"
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: AWS_REGION
 
