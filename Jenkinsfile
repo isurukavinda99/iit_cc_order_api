@@ -29,27 +29,27 @@ pipeline {
             }
         }
 
-//         stage('Run API Tests') {
-//             steps {
-//                 script {
-//                     echo '=== Running Tests in Docker Container ==='
-//                     sh """
-//                         docker run --rm \\
-//                             -e DB_HOST=${DB_HOST} \\
-//                             -e DB_NAME=${DB_NAME} \\
-//                             -e DB_USER=${DB_USER} \\
-//                             -e DB_PASSWORD=${DB_PASSWORD} \\
-//                             -e DB_PORT=${DB_PORT} \\
-//                             -e COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID} \\
-//                             -e COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID} \\
-//                             -e AWS_REGION=${AWS_REGION} \\
-//                             -e OIDC_TOKEN=${OIDC_TOKEN} \\
-//                             ${DOCKER_HUB_REPO}:latest pytest app/tests/integration || exit 1
-//
-//                     """
-//                 }
-//             }
-//         }
+        stage('Run API Tests') {
+            steps {
+                script {
+                    echo '=== Running Tests in Docker Container ==='
+                    sh """
+                        docker run --rm \\
+                            -e DB_HOST=${DB_HOST} \\
+                            -e DB_NAME=${DB_NAME} \\
+                            -e DB_USER=${DB_USER} \\
+                            -e DB_PASSWORD=${DB_PASSWORD} \\
+                            -e DB_PORT=${DB_PORT} \\
+                            -e COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID} \\
+                            -e COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID} \\
+                            -e AWS_REGION=${AWS_REGION} \\
+                            -e OIDC_TOKEN=${OIDC_TOKEN} \\
+                            ${DOCKER_HUB_REPO}:latest pytest app/tests/integration || exit 1
+
+                    """
+                }
+            }
+        }
 
         stage('Push Docker Image') {
             steps {
