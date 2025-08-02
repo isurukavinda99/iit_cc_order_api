@@ -1,7 +1,7 @@
 import os
 import requests
 
-BASE_URL = "http://127.0.0.1:8001/payment/"
+BASE_URL = "http://127.0.0.1:8091/payment/"
 HEADERS = {
     "x-amzn-oidc-data": os.environ["OIDC_TOKEN"]
 }
