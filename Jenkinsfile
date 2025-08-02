@@ -79,6 +79,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh """
                         export PATH=$HOME/bin:$PATH
+                        kubectl apply -f ${K8S_SECRET_FILE} --validate=false
                         kubectl apply -f ${K8S_DEPLOY_FILE} --validate=false
                         kubectl apply -f ${K8S_SERVICE_FILE} --validate=false
                         kubectl rollout restart deployment/order-api-deployment
