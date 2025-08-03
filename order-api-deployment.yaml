@@ -1,0 +1,70 @@
+#order-api-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-api
+  template:
+    metadata:
+      labels:
+        app: order-api
+    spec:
+      containers:
+      - name: order-api-container
+        image: isurukavinda99/order_api:latest
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_PASSWORD
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: DB_PORT
+        - name: COGNITO_USER_POOL_ID
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: COGNITO_USER_POOL_ID
+        - name: COGNITO_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: COGNITO_CLIENT_ID
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: order-api-secret
+              key: AWS_REGION
+

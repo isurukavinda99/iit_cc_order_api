@@ -418,3 +418,4 @@ pip-selfcheck.json
 pakcage/
 lambda_app.zip
 secrets.bat
+dont-send-order-api-secret.yaml
