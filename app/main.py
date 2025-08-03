@@ -23,7 +23,7 @@ async def startup_event():
     logger.info("🚀 App startup initiated. aws")
     engine = init_db()
     Base.metadata.create_all(bind=engine)
-    logger.info("🚀 App startup end.")
+    logger.info("🚀 App startup end")
 
 
 @app.middleware("http")
